@@ -1,0 +1,71 @@
+.App {
+    text-align: center;
+    height: 500px;
+
+}
+
+canvas {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(0deg, #e27dee 0%, #64c2f5 100%);
+    animation: canvasanim 0.3s infinite;
+}
+
+@keyframes canvasanim {
+    from {
+        background-image: linear-gradient(0deg, #e59fee 0%, #a2d1ec 100%);
+    }
+    to {
+        background-image: linear-gradient(0deg, #e27dee 0%, #64c2f5 100%);
+    }
+    /*0% {*/
+    /*    background-image: linear-gradient(0deg, #e27dee 0%, #64c2f5 100%);*/
+    /*}*/
+    /*25 % {*/
+    /*    background-image: linear-gradient(0deg, #8e1296 0%, #003e5d 100%);*/
+    /*}*/
+    /*50 % {*/
+    /*    background-image: linear-gradient(0deg, #967996 0%, #a1becc 100%);*/
+    /*}*/
+    /*75 % {*/
+    /*    background-image: linear-gradient(0deg, #8e1296 0%, #003e5d 100%);*/
+    /*}*/
+    /*100% {*/
+    /*    background-image: linear-gradient(0deg, #e27dee 0%, #64c2f5 100%);*/
+    /*}*/
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
