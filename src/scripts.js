@@ -22,138 +22,179 @@
 
 import * as THREE from "three"
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
-import './style.css'
+import './style.scss'
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
+import * as TWEEN from '@tweenjs/tween.js';
 
 const scene = new THREE.Scene()
-
-const axesHelper = new THREE.AxesHelper(3)
-scene.add(axesHelper)
 
 const geometry = new THREE.BoxGeometry(3,1,2);
 const material = new THREE.MeshBasicMaterial({color:'purple',
 wireframe: true})
 const mesh = new THREE.Mesh(geometry, material);
-const color2 = new THREE.Color( 0xd0e0ea );
-scene.add(mesh)
+const color2 = new THREE.Color( 0xEEEDEB )
 scene.background =  color2
 
 const size = {
-    width: 600,
-    height: 600,
+    width: window.innerWidth,
+    height: 1200,
 }
 
-const camera = new THREE.PerspectiveCamera(75, size.width/size.height)
+const camera = new THREE.PerspectiveCamera(85, size.width/size.height)
 
-camera.position.z = 10
-// camera.position.y = 2
-// mesh.rotation.y = 1
+camera.position.z = 5
+camera.position.y = 2.5
+camera.rotation.x = -0.2
 
 
 mesh.scale.x = 1
 
-// setInterval(()=>{
-//     mesh.scale.x += 0.001
-//     mesh.scale.y += 0.001
-//     renderer.render(scene, camera)
-// },1)
 
 scene.add(camera)
 
 
-function init(obj){
-    console.log('ok')
-    console.log(obj)
-    // let children = obj?.children
-    // let obj1 = children[0]?.geometry
-
-    const material2 = new THREE.MeshBasicMaterial({
-        color: 'red'
-    })
-    // const mesh2 = new THREE.Mesh(obj1, material2);
-    // const cube = new THREE.Mesh(obj, material2)
-    // cube.rotation.y = 1.4
-    // mesh2.rotation.x = 1
-    scene.add(obj)
-    camera.position.y = 3
-    // camera.lookAt(mesh2.position)
-    renderer.render(scene, camera)
-}
-
-
-const material2 = new THREE.MeshBasicMaterial({
-    color: 'red'
-})
 // const mesh2 = new THREE.Mesh(geometry, material2);
 // scene.add(mesh2)
-const loaderrr = new GLTFLoader()
-loaderrr.load('./model/laptop/scene.gltf', (obj)=> {
-    console.log(obj)
-    let root = obj.scene
-    root.scale.x = 3
-    root.scale.y = 3
-    root.scale.z = 3
-    root.rotation.y = 3.14
-    root.rotation.x = 0.5
-    scene.add(root)
-    renderer.render(scene, camera)
-})
 
-const light = new THREE.DirectionalLight(0xffffff, 2)
-light.position.set(2,2,5)
+
+const lightAmbient = new THREE.AmbientLight(0xFFFFFF, 2)
+const light = new THREE.PointLight(0xFFFFFF, 250)
+light.position.set(2,8,7)
 scene.add(light)
+scene.add(lightAmbient)
 
 const canvas = document.getElementsByClassName('canvas')[0]
 
 const renderer = new THREE.WebGLRenderer({canvas})
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
 const clock = new THREE.Clock()
-window.addEventListener(`scroll`, ()=>{
-
-})
-let activ = true
 
 const animate = () => {
     requestAnimationFrame(animate);
-
-    // Добавьте ваш код анимации здесь, если это необходимо
 
     renderer.render(scene, camera);
 };
 
 animate();
 
-
-window.addEventListener(`scroll`, ()=>{
-
-        // const tick = ()=> {
-        //     const elepsedTime = clock.getElapsedTime()
-        //     console.log('pzdw')
-        //     for(let x = -3; x < -1; x = x + 0.2){
-        //
-        //     }
-        //     const interval = setInterval(()=>{
-        //         if(mesh2.position.x <= camera.position.x){
-        //             camera.lookAt(mesh2.position)
-        //             clearInterval(interval)
-        //             activ = false
-        //         } else {
-        //             camera.position.x += 0.01
-        //             camera.position.z -= 0.027
-        //         }
-        //         console.log(mesh2.position)
-        //         console.log(camera.position)
-        //         camera.lookAt(mesh2.position)
-        //         renderer.render(scene, camera)
-        //     },1)
-            // camera.position.z = 4
-            // camera.lookAt(mesh2.position)
-
-            // window.requestAnimationFrame(tick)
-        // }
-        // tick()
-})
-
 // renderer.setSize(size.width, size.height)
-renderer.setSize(1200, 1200)
+renderer.setSize(window.innerWidth, 1200)
 
 renderer.render(scene, camera)
+
+
+
+const loaderrr = new GLTFLoader()
+loaderrr.load('./monic/scene.gltf', (obj)=> {
+    console.log(obj)
+    const group = new THREE.Group()
+
+    let root = obj.scene
+    // console.log(obj)
+    // let root = obj.scene
+    // root.scale.x = 10
+    // root.scale.y = 10
+    // root.scale.z = 10
+    // // root.position.x = 2.5
+    // // root.rotation.y = 3.14
+    // // root.rotation.x = 0.1
+    // scene.add(root)
+    // console.log(root)
+    // // camera.lookAt(root.rotation)
+    // renderer.render(scene, camera)
+    loaderrr.load('./desk/scene.gltf', (obj)=> {
+        let root2 = obj.scene
+        root2.scale.x = 10
+        root2.scale.y = 10
+        root2.scale.z = 10
+        group.add(root)
+        group.add(root2)
+        scene.add(group)
+    })
+    // root.scale.x = 5
+    // root.scale.y = 5
+    // root.scale.z = 5
+    root.position.y = 1.81
+
+    // root.rotation.y = 3.14
+    // root.rotation.x = 0.1
+    console.log(root)
+    // camera.lookAt(root.rotation)
+    renderer.render(scene, camera)
+    var start = { x: 0, y: 0, z: 0 };
+    var end = { x:0, y: -1, z: 4 };
+    let rotats = {x:0,y:0,z:0}
+    let rotate = {x:0,y:0,z:0}
+
+    const interval = setInterval(()=>{
+        group.rotation.y += 0.003
+    }, 10)
+
+
+    window.addEventListener(`scroll`, function scr(){
+        console.log('scroll')
+        this.removeEventListener(`scroll`,scr )
+
+
+        setTimeout(()=>{
+            let mainPlace = document.getElementsByClassName('mainPlace')[0]
+            mainPlace.style.opacity = '1'
+            canvas.style.opacity = '0'
+            scroll(0,0)
+            setTimeout(()=> canvas.style.display = 'none', 500)
+        },1000)
+        clearInterval(interval)
+        const interval2 = setInterval(()=>{
+            if (+group.rotation.y.toFixed(1) % 6.2 > 3.2){
+                group.rotation.y += 0.08
+                console.log('work')
+                console.log(group.rotation.y.toFixed(1) % 3.1)
+            } else {
+                group.rotation.y -= 0.08
+            }
+            if (group.rotation.y.toFixed(1) % 6.2 === 0) {
+                group.rotation.y = 0
+                clearInterval(interval2)
+                tick()
+            }
+        },10)
+        const tick = ()=> {
+
+            const elepsedTime = clock.getElapsedTime()
+
+            TWEEN.update()
+            setTimeout(()=>{
+                var tween = new TWEEN.Tween(start)
+                    .to(end, 100) // Продолжительность в миллисекундах
+                    .easing(TWEEN.Easing.Quadratic.InOut)
+                    .onUpdate(function () {
+                        // Обновление позиции объекта
+                        // console.log('lok')
+                        group.position.set(start.x, start.y, start.z);
+                        renderer.render(scene, camera)
+                    })
+                    .start();
+            },100)
+            renderer.render(scene, camera)
+            window.requestAnimationFrame(tick)
+        }
+
+    })
+})
+
+// loaderrr.load('./desk/scene.gltf', (obj)=> {
+//     console.log(obj)
+//     let root = obj.scene
+//     root.scale.x = 10
+//     root.scale.y = 10
+//     root.scale.z = 10
+//     // root.position.x = 2.5
+//     // root.rotation.y = 3.14
+//     // root.rotation.x = 0.1
+//     scene.add(root)
+//     console.log(root)
+//     // camera.lookAt(root.rotation)
+//     renderer.render(scene, camera)
+//
+// })

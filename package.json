@@ -25,13 +25,16 @@
     "mini-css-extract-plugin": "^2.7.7",
     "portfinder-sync": "^0.0.2",
     "raw-loader": "^4.0.2",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.1.0",
     "style-loader": "^3.3.4",
-    "webpack": "^5.89.0",
+    "webpack": "^5.90.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1",
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
+    "@tweenjs/tween.js": "^23.1.1",
     "request": "^2.79.0",
     "three": "^0.160.1"
   }

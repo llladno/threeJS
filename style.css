@@ -1,4 +1,33 @@
-.swiper {
-    width: 600px;
-    height: 300px;
+* {
+  margin: 0;
+  padding: 0;
 }
+
+.canvasPlace {
+  height: 101vh;
+  overflow: hidden;
+}
+
+canvas {
+  width: 100%;
+  background: #d0e0ea;
+  opacity: 1;
+  transition: opacity 0.7s ease-out;
+}
+
+header {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.mainPlace {
+  font-size: 50px;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1.2s ease-out;
+}
+
+/*# sourceMappingURL=style.scss.map */
