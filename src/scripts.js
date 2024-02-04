@@ -72,6 +72,7 @@ const clock = new THREE.Clock()
 
 const animate = () => {
     requestAnimationFrame(animate);
+
     renderer.render(scene, camera);
 };
 
